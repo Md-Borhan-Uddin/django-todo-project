@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-center mt-2 p-4 text-white bg-secondary">Show Active Todos</h1>
+
+{% if todo_list %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">SL</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todo_list %}
+    
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><a href="{% url 'detail_todo' todo.pk %}">{{todo.todoTitle}}</a></td>
+      <td>{{todo.todoDescription}}</td>
+      <td>{% if todo.is_completed %}Complete{% else %}Incomplete {% endif %}</td>
+      <td>
+          <a href="{% url 'delete_todo' todo.pk %}" class="btn btn-danger">Delete</a>
+          <a href="{% url 'update_todo' todo.pk %}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'update_completed' todo.pk %}" class="btn btn-success">Complete</a>
+      </td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+{% else %}
+<p class="text-center fs-2">No Active Todo</p>
+
+
+
+
+
+
+{% endif %}
+
+{% endblock content %}
+
+
+
